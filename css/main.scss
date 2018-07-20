@@ -1,0 +1,22 @@
+
+$primary-red: #DE5B49;
+$primary-orange: #E37B40;
+$primary-blue: #46B29D;
+$primary-black: #324D5C;
+$primary-yellow: #F0C94D;
+$primary-white: #F9F9F9;
+
+
+* {
+	font-family: 'Helvetica Neue', sans-serif;
+
+	color: $primary-black;
+}
+
+
+#app {
+	width: 400px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
