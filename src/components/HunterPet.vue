@@ -1,6 +1,6 @@
 <template>
   <div>
-    {{pet.name}}
+    {{pet.name}} - {{pet.familyName}}
   </div>
 </template>
 

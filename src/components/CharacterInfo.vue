@@ -1,5 +1,5 @@
 <template>
-  <div class="character">
+  <div class="character" v-if="character.name">
     <span class="name">{{character.name}}</span>
 
     <div class="sub-info">
@@ -7,24 +7,31 @@
     </div>
 
 		<div v-if="character.name">
+      {{races[character.race].name}} {{classes[character.class].name}}
+    </div>
+    <div>
       {{genders[character.gender]}} - 
-      {{factions[character.faction]}} - 
-      {{classes[character.class].name}} - 
-      {{races[character.race].name}}
-
-      <h3>Pets {{character.hunterPets.length}}</h3>
-
-      <HunterPet v-for="pet in character.hunterPets"
-                  :pet-index="$index"
-                  :pet="pet"
-                  v-bind:key="pet.name">
-      </HunterPet>
-		</div>
+      {{factions[character.faction]}}
+    </div>
+      
+    <div v-if="character.hunterPets">
+      <h3 v-on:click="showPets = !showPets" class="pets-title">
+        Pets {{character.hunterPets.length}}
+        <span v-if="showPets">^</span>
+        <span v-if="!showPets">v</span></h3>
+        
+      <div v-if="showPets">
+        <HunterPet v-for="pet in character.hunterPets"
+                    :pet="pet"
+                    v-bind:key="pet.slot">
+        </HunterPet>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import HunterPet from './HunterPet.vue'
+import HunterPet from "./HunterPet.vue";
 
 export default {
   name: "CharacterInfo",
@@ -34,6 +41,7 @@ export default {
   },
   data() {
     return {
+      showPets: false,
       factions: {
         0: "alliance",
         1: "horde"
@@ -191,5 +199,9 @@ export default {
 
 .sub-info {
   font-size: 0.9rem;
+}
+
+.pets-title {
+  cursor: pointer;
 }
 </style>
