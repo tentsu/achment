@@ -1,7 +1,9 @@
 <template>
   <div id="app">    
-    <SearchForm :character-data="character" @interface="character = $event"></SearchForm>
-    <CharacterInfo :character="character"></CharacterInfo>
+    <SearchForm :info-data="info" @interface="info = $event"></SearchForm>
+    <CharacterInfo :character="info.character"></CharacterInfo>
+
+    {{ info.quest }}
   </div>
 </template>
 
@@ -16,7 +18,10 @@ export default {
   },
   data () {
     return {
-      character: {}
+      info: {
+        character: {},
+        quest: {}
+      }
     }
   }
 }

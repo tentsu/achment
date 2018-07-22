@@ -5,18 +5,56 @@ $primary-blue: #46B29D;
 $primary-black: #324D5C;
 $primary-yellow: #F0C94D;
 $primary-white: #F9F9F9;
+$primary-grey: #DEDEDE;
 
+
+@mixin border-radius($radius) {
+	border-radius: $radius;
+	-moz-border-radius: $radius;
+	-webkit-border-radius: $radius;
+}
 
 * {
 	font-family: 'Helvetica Neue', sans-serif;
-
+	outline: none;
 	color: $primary-black;
 }
 
 
 #app {
-	width: 400px;
+	width: 600px;
 	margin-left: auto;
 	margin-right: auto;
 }
 
+button::-moz-focus-inner,
+input::-moz-focus-inner {
+  border: 0;
+  padding: 0;
+}
+
+input {
+	border: 1px solid $primary-grey;
+	padding: 5px;
+	@include border-radius(2px);
+	-moz-appearance: none;
+	appearance: none;
+	background-color: white;
+}
+
+select {
+	box-sizing: border-box;
+	padding: 5px;
+	-webkit-appearance: menulist;
+}
+
+button {
+	padding: 5px;
+	background-color: white;
+	border: 1px solid $primary-black;
+	@include border-radius(2px);
+
+	&:hover {
+		background-color: $primary-grey;
+	}
+}
