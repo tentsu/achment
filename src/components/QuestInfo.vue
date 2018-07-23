@@ -11,7 +11,9 @@ export default {
   name: 'QuestInfo',
   props: [ 'quest' ],
   data () {
-
+    return {
+      
+    }
   }
 }
 </script>

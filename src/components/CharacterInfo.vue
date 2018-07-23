@@ -31,11 +31,11 @@
 </template>
 
 <script>
-import HunterPet from "./HunterPet.vue";
+import HunterPet from './HunterPet.vue';
 
 export default {
-  name: "CharacterInfo",
-  props: ["character"],
+  name: 'CharacterInfo',
+  props: ['character'],
   components: {
     HunterPet
   },

@@ -1,7 +1,7 @@
 <template>
   <div id="app">    
     <SearchForm :info-data="info" @interface="info = $event"></SearchForm>
-    
+
     <CharacterInfo :character="info.character"></CharacterInfo>
 
     <QuestInfo :quest="info.quest"></QuestInfo>
