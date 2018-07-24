@@ -88,12 +88,16 @@ export default {
 		this.childData = this.infoData
 	},
 	mounted() {
-		this.$http.get('./apikey.txt').then(function(response) {
-			this.urlParams.apikey = this.urlParams.apikey.replace('APIKEY', response.data);
-		}, function() {});
+		this.getApiKey();
 	},
 	methods: {
 		refreshRealmList () {
+		},
+		getApiKey () {
+			var that = this;
+			this.getRequest('./apikey.txt', function(apikey) {
+				that.urlParams.apikey = that.urlParams.apikey.replace('APIKEY', apikey);
+			}, null, true);
 		},
 		getQuestUrl (region, id) {
 			var url = this.apiUrls.quest.replace('ID', id);
@@ -107,11 +111,10 @@ export default {
 			var url = this.getQuestUrl(this.character.region, this.questId);
 
 			var that = this;
-			this.getto(url, function(data) {
+			this.getRequest(url, function(data) {
 				that.childData.quest = data;
 				that.$emit('interface', that.childData);
 			}, this.tempQuest);
-			
 		},
 		fetchProfile () {
 			var url;
@@ -123,24 +126,24 @@ export default {
 			}
 
 			var that = this;
-			this.getto(url, function(data) {
+			this.getRequest(url, function(data) {
 				data.hunterPets.sort(that.sortByName);
 
 				that.childData.character = data;
 				that.$emit('interface', that.childData);
 			}, this.tempProfile);
 		},
-		getto (url, callback, temp) {
-			if (DEMO) {
+		getRequest (url, callback, temp, notDemo) {
+			if (window.DEMO && !notDemo) {
 				callback(temp || {});
 				return;
 			}
 
-			this.$http.get(url).then(function(response) {
+			this.axios.get(url).then(function(response) {
 				callback(response.data);
-			}, function(error) {
-				this.setError(error);
-			});
+			})
+			.catch(this.setError)
+			.then(function() {});
 		},
 		setError (error) {
 

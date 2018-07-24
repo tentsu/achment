@@ -1,8 +1,9 @@
 import Vue from 'vue';
-import VueResource from 'vue-resource';
+import axios from 'axios';
+import VueAxios from 'vue-axios'
 import App from './App';
 
-Vue.use(VueResource);
+Vue.use(VueAxios, axios)
 Vue.config.productionTip = false;
 
 new Vue({
@@ -10,5 +11,5 @@ new Vue({
 }).$mount('#app');
 
 
-// Demo mode with demo data
+// Demo mode with demo data to demo app like a demon
 window.DEMO = true;
