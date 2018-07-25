@@ -31,6 +31,9 @@
 </template>
 
 <script>
+import apiService from '../utils/apiService'
+import tools from '../utils/tools'
+
 export default {
 	name: 'SearchForm',
 	props: {
@@ -95,9 +98,9 @@ export default {
 		},
 		getApiKey () {
 			var that = this;
-			this.getRequest('./apikey.txt', function(apikey) {
+			apiService.getApiKey(function(apikey) {
 				that.urlParams.apikey = that.urlParams.apikey.replace('APIKEY', apikey);
-			}, null, true);
+			});
 		},
 		getQuestUrl (region, id) {
 			var url = this.apiUrls.quest.replace('ID', id);
@@ -107,11 +110,21 @@ export default {
 			var url = this.apiUrls.profile.replace('REALM', realm).replace('CHARACTER', character);
 			return this.baseUrl.replace('REGION', region) + url + this.urlParams.locale + this.urlParams.apikey;
 		},
+		parseCharacterFromUrl () {
+			var asd = this.url.split('/');
+
+			return {
+				name: asd[asd.length - 1],
+				realm: asd[asd.length - 2],
+				region: 'eu'
+			};
+		},
+
 		fetchQuest () {
 			var url = this.getQuestUrl(this.character.region, this.questId);
 
 			var that = this;
-			this.getRequest(url, function(data) {
+			apiService.getRequest(url, function(data) {
 				that.childData.quest = data;
 				that.$emit('interface', that.childData);
 			}, this.tempQuest);
@@ -126,43 +139,12 @@ export default {
 			}
 
 			var that = this;
-			this.getRequest(url, function(data) {
-				data.hunterPets.sort(that.sortByName);
+			apiService.getRequest(url, function(data) {
+				data.hunterPets.sort(tools.sortByName);
 
 				that.childData.character = data;
 				that.$emit('interface', that.childData);
 			}, this.tempProfile);
-		},
-		getRequest (url, callback, temp, notDemo) {
-			if (window.DEMO && !notDemo) {
-				callback(temp || {});
-				return;
-			}
-
-			this.axios.get(url).then(function(response) {
-				callback(response.data);
-			})
-			.catch(this.setError)
-			.then(function() {});
-		},
-		setError (error) {
-
-		},
-		sortByProperty (a,b) {
-			if (a.name < b.name)
-				return -1;
-			if (a.name > b.name)
-				return 1;
-			return 0;
-		},
-		parseCharacterFromUrl () {
-			var asd = this.url.split('/');
-
-			return {
-				name: asd[asd.length - 1],
-				realm: asd[asd.length - 2],
-				region: 'eu'
-			};
 		},
 	}
 }
