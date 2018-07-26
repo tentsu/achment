@@ -1,5 +1,10 @@
 <template>
-  <div id="app">    
+  <div id="app">
+    <div class="demo-mode">
+      <input type="checkbox" id="demoMode" v-model="demoMode" v-on:change="changeDemoMode()">
+      <label for="demoMode">demo</label>
+    </div>
+
     <SearchForm :info-data="info" @interface="info = $event"></SearchForm>
 
     <CharacterInfo :character="info.character"></CharacterInfo>
@@ -21,15 +26,33 @@ export default {
   },
   data () {
     return {
+      demoMode: false,
       info: {
         character: {},
         quest: {}
       }
     }
+  },
+  mounted () {
+    this.demoMode = window.DEMO;
+  },
+  methods: {
+    changeDemoMode () {
+      window.DEMO = this.demoMode;
+    }
   }
 }
 </script>
 
-<style>
+<style lang="scss">
+.demo-mode {
+  margin: 10px 0;
+
+  label {
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    font-weight: bold;
+  }
+}
 
 </style>
