@@ -1,5 +1,5 @@
 <template>
-  <div class="character" v-if="character.name">
+  <div class="character-info" v-if="character.name">
     <span class="name">{{character.name}}</span>
 
     <div class="sub-info">
@@ -192,16 +192,20 @@ export default {
 </script>
 
 <style lang="scss">
-.name {
-  font-size: 1.5rem;
-  color: $primary-orange;
-}
 
-.sub-info {
-  font-size: 0.9rem;
-}
+.character-info {
+  .name {
+    font-size: 1.5rem;
+    color: $primary-orange;
+  }
 
-.pets-title {
-  cursor: pointer;
+  .sub-info {
+    font-size: 0.9rem;
+  }
+
+  .pets-title {
+    cursor: pointer;
+  }
+
 }
 </style>

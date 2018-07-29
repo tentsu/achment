@@ -40,7 +40,6 @@ export default {
       url = this.getProfileUrl(character.name, character.realm, character.region);
     }
 
-    var that = this;
     this.getRequest(url, function(data) {
       data.hunterPets.sort(tools.sortByName);
 

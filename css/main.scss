@@ -1,7 +1,8 @@
 
 $primary-red: #DE5B49;
 $primary-orange: #E37B40;
-$primary-blue: #46B29D;
+$primary-green: #46B29D;
+$primary-blue: rgb(47, 123, 153);
 $primary-black: #324D5C;
 $primary-yellow: #F0C94D;
 $primary-white: #F9F9F9;
@@ -49,12 +50,16 @@ select {
 }
 
 button {
-	padding: 5px;
+	padding: 5px 10px;
 	background-color: white;
-	border: 1px solid $primary-black;
 	@include border-radius(2px);
+	cursor: pointer;
+
+	border: 1px solid $primary-green;
+	color: $primary-green;
 
 	&:hover {
-		background-color: $primary-grey;
+		border-color: $primary-blue;
+		color: $primary-blue;
 	}
 }
