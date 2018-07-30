@@ -3,17 +3,21 @@
     <span class="name">{{character.name}}</span>
 
     <div class="sub-info">
-      <span class="realm">{{character.realm}}</span>
+      <div>
+        <span v-if="genders[character.gender] === 'female'"
+              v-bind:class="[genders[character.gender]]">
+          ♀
+        </span>
+        <span v-if="genders[character.gender] === 'male'"
+              v-bind:class="[genders[character.gender]]">
+          ♂
+        </span>
+        {{races[character.race].name}} {{classes[character.class].name}}
+      </div>
+
+      <span class="realm" v-bind:class="[factions[character.faction]]">{{character.realm}}</span>
     </div>
 
-		<div v-if="character.name">
-      {{races[character.race].name}} {{classes[character.class].name}}
-    </div>
-    <div>
-      {{genders[character.gender]}} - 
-      {{factions[character.faction]}}
-    </div>
-      
     <div v-if="character.hunterPets">
       <h3 v-on:click="showPets = !showPets" class="pets-title">
         Pets {{character.hunterPets.length}}
@@ -195,8 +199,8 @@ export default {
 
 .character-info {
   .name {
-    font-size: 1.5rem;
-    color: $primary-orange;
+    font-size: 2rem;
+    color: $primary-green;
   }
 
   .sub-info {
@@ -205,6 +209,22 @@ export default {
 
   .pets-title {
     cursor: pointer;
+  }
+
+  .female {
+    color: pink;
+  }
+  .alliance {
+    color: blue;
+  }
+
+  .realm {
+    &.horde {
+      color: red;
+    }
+    &.alliance {
+      color: blue;
+    }
   }
 
 }
